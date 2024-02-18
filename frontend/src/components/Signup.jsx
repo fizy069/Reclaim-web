@@ -3,8 +3,10 @@ import {Input} from "@nextui-org/react";
 import {EyeFilledIcon} from "./EyeFilledIcon";
 import {EyeSlashFilledIcon} from "./EyeSlashFilledIcon ";
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
 function Signup() {
+    const navigate = useNavigate();
     const [isVisible, setIsVisible] = React.useState(false);
     const toggleVisibility = () => setIsVisible(!isVisible);
     const [email, setEmail] = useState('');
@@ -22,6 +24,30 @@ function Signup() {
     const handleChangeUsername = (event)=>{
         setUsername(event.target.value);
     }
+    const handleSubmit = (e)=>{
+      e.preventDefault();
+      const user = {
+          username: username,
+          email: email,
+          password: password
+    }
+    axios.post('http://localhost:3000/register', user)
+    .then(result=>{
+      console.log(result)
+      if(result.data === "User Created"){
+        alert("Registered Successfully")
+        navigate("/login")
+      }
+      else{
+        alert("Registration Failed, Please try again")
+      }
+     
+    })
+
+    .catch(err=>console.log(err))
+  }
+
+    
 
     return (
     <div className='h-screen w-full bg-[#10111E] text-white flex justify-center items-center'>
@@ -82,7 +108,7 @@ function Signup() {
         </div>
 
         <div className='mb-16'>
-            <button className='w-full rounded-3xl text-white bg-[#e70f2fce] text-lg font-bold px-6 py-4 text-center' >
+            <button className='w-full rounded-3xl text-white bg-[#e70f2fce] text-lg font-bold px-6 py-4 text-center'onClick={handleSubmit} >
                 Sign up
             </button>
         </div>

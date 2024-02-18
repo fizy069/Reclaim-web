@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import {Input} from "@nextui-org/react";
 import {EyeFilledIcon} from "./EyeFilledIcon";
 import {EyeSlashFilledIcon} from "./EyeSlashFilledIcon ";
+import {useNavigate} from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
 function Login() {
     const [isVisible, setIsVisible] = React.useState(false);
     const toggleVisibility = () => setIsVisible(!isVisible);
@@ -16,6 +17,29 @@ function Login() {
     const handleChange = (event) => {
       setEmail(event.target.value);
     };
+    const navigate = useNavigate();
+  
+    const handleSubmit = (e)=>{
+    e.preventDefault();
+    const user = {
+        email: email,
+        password: password
+    }
+    axios.post('http://localhost:3000/login', user)
+    .then(result=>{
+      console.log(result)
+      if (result.data === "Login Success"){
+        alert("Login Success")
+        navigate('/home')
+      }
+      else {
+        navigate("/signup")
+        alert("You are not registered, please register first.")
+      }
+    })
+    .catch(err=>console.log(err))
+    
+   }
 
     return (
     <div className='h-screen w-full bg-[#10111E] text-white flex justify-center items-center'>
@@ -60,14 +84,14 @@ function Login() {
         </div>
 
         <div className='mb-16'>
-            <button className='w-full rounded-3xl text-white bg-[#e70f2fce] text-lg font-bold px-6 py-4 text-center' >
+            <button className='w-full rounded-3xl text-white bg-[#e70f2fce] text-lg font-bold px-6 py-4 text-center' onClick={handleSubmit} >
                 Log In
             </button>
         </div>
 
         <div className='flex justify-between items-center'>
             <div>
-                <p>Don't have an account</p>
+                <p>Want to make an account</p>
             </div>
             <div className='text-[#e70f2cf4]'>
                 <Link to={'/signup'}>Sign up</Link>
