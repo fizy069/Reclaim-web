@@ -39,7 +39,7 @@ const Tabs = ({
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
             className={cn(
-              'relative px-4 py-2 rounded-full focus:outline-none transition-transform transform-gpu border border-transparent hover:border-gray-300 dark:border-gray-600',
+              'relative px-4 py-2 rounded-full focus:outline-none transition-transform transform-gpu border border-transparent hover:border-gray-300 ',
               tabClassName
             )}
             style={{
@@ -51,7 +51,7 @@ const Tabs = ({
                 layoutId="clickedbutton"
                 transition={{ type: 'spring', bounce: 0.3, duration: 0.6 }}
                 className={cn(
-                  'absolute inset-0 bg-gray-700 dark:bg-gray-800 rounded-full',
+                  'absolute inset-0 bg-red-700  rounded-full',
                   activeTabClassName
                 )}
               />
@@ -92,7 +92,7 @@ const FadeInDiv = ({ className, tabs, hovering }) => {
             y: isActive(tab) ? [0, 40, 0] : 0,
           }}
           className={cn(
-            'w-full h-[60vh] absolute top-0 left-0 border border-[#e70f2fce] rounded-lg p-4 ',
+            'w-full h-[80vh] absolute top-0 left-0 border border-[#e70f2fce] rounded-xl p-4 ',
             className
           )}
         >
