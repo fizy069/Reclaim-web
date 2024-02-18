@@ -3,6 +3,7 @@ import {Input} from "@nextui-org/react";
 import {EyeFilledIcon} from "./EyeFilledIcon";
 import {EyeSlashFilledIcon} from "./EyeSlashFilledIcon ";
 import { Link } from 'react-router-dom';
+import e from 'cors';
 
 function Signup() {
     const [isVisible, setIsVisible] = React.useState(false);
@@ -11,8 +12,8 @@ function Signup() {
     const [username,setUsername] = useState("");
     const [password,setPassword] = useState("");
 
-    const handleChangePassword = (event) => {
-        setPassword(event.target.value);
+    const handleChangePassword = (e)=>{
+      setPassword(e.target.value);
     }
 
     const handleChange = (event) => {
@@ -65,7 +66,7 @@ function Signup() {
       label="Password"
       variant="bordered"
       placeholder="Enter your password"
-      handleChange = {handleChangePassword}
+      onChange = {handleChangePassword}
       value={password}
       endContent={
         <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
